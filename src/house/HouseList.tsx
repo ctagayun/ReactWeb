@@ -2,13 +2,17 @@
 // import { useNavigate } from "react-router-dom";
 import { currencyFormatter } from "../config";
 import { useFetchHouses } from "../hooks/HouseHooks";
+import ApiStatus from "../apiStatus";
+
 //import { House } from "../types/house";
 //import config from "../config";
 
 const HouseList = () => {
   //This hook returns "data" so we need to destructure it
-  const {data} = useFetchHouses(); 
+  const {data, status, isSuccess} = useFetchHouses(); 
   
+  if (!isSuccess)
+    return <ApiStatus status={status} />
   return (
     <div>
       <div className="row mb-2">
