@@ -1,10 +1,9 @@
 //import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import { currencyFormatter } from "../config";
-// import { useFetchHouses } from "../hooks/HouseHooks";
-import { House } from "../types/house";
-import {useState} from "react";
-import config from "../config";
+import { useFetchHouses } from "../hooks/HouseHooks";
+//import { House } from "../types/house";
+//import config from "../config";
 
 const HouseList = () => {
   // const nav = useNavigate();
@@ -13,16 +12,8 @@ const HouseList = () => {
   // if (isPending) return <h2>Hold on</h2>;
   // console.log(data);
 
-  const [houses, setHouses] = useState<House[]>
-        ([]);
-
-  const fetchHouses = async () =>{
-     const rsp = await fetch(`${config.baseApiUrl}/houses`)
-     const houses = await rsp.json();
-     setHouses(houses);
-    }
-
-   fetchHouses();
+  const houses = useFetchHouses();
+  
   return (
     <div>
       <div className="row mb-2">
