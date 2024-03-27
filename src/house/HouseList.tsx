@@ -6,13 +6,8 @@ import { useFetchHouses } from "../hooks/HouseHooks";
 //import config from "../config";
 
 const HouseList = () => {
-  // const nav = useNavigate();
-  // const { data, isPending } = useFetchHouses();
-
-  // if (isPending) return <h2>Hold on</h2>;
-  // console.log(data);
-
-  const houses = useFetchHouses();
+  //This hook returns "data" so we need to destructure it
+  const {data} = useFetchHouses(); 
   
   return (
     <div>
@@ -30,7 +25,7 @@ const HouseList = () => {
           </tr>
         </thead>
         <tbody>
-            {houses.map((h) => (
+            {data && data.map((h) => (
               <tr key={h.id}>
                 <td>{h.address}</td>
                 <td>{h.country}</td>
