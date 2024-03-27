@@ -22,6 +22,7 @@ const HouseList = () => {
      setHouses(houses);
     }
 
+   fetchHouses();
   return (
     <div>
       <div className="row mb-2">
