@@ -12,15 +12,30 @@
 import './App.css'
 import Header from './Header';
 import HouseList from '../house/HouseList';
+import HouseDetail from "../house/HouseDetail"; //detl
+import {BrowserRouter, Route, Routes} from 'react-router-dom'; //rtg
 
 function App() {
     return (
+      //rtg
+      //detl - path="/house/:id" this will not literally expect colon id ":id" in the
+      //       url. Instead we will expect the actual id of the house
+     <BrowserRouter> 
        <div className='container'>
           <Header subtitle="Providing houses all over the world">
           </Header>
-          <HouseList></HouseList>
+          <Routes>
+             <Route path="/" element={<HouseList />}></Route>
+             <Route path="/house/:id" element={<HouseDetail />}></Route>
+           
+          </Routes>
        </div>
+     </BrowserRouter>
     )
 }
 
 export default App
+
+  //<Route path="/house/add" element={<HouseAdd />}></Route>
+            // <Route path="/house/edit/:id" element={<HouseEdit />}></Route>
+ 

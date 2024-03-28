@@ -53,13 +53,16 @@ const useFetchHouses = () => {
   });
 } //eof useFetchHouses
 
-// const useFetchHouse = (id: number) => {
-//   return useQuery<House, AxiosError>({
-//     queryKey: ["houses", id],
-//     queryFn: () =>
-//       axios.get(`${config.baseApiUrl}/house/${id}`).then((resp) => resp.data),
-//   });
-// };
+//Detl
+//This means when this hook executes we pass in house id and a
+//separate cache will be created for this PARTICULAR house id
+const useFetchHouse = (id: number) => {
+  return useQuery<House, AxiosError>({
+    queryKey: ["houses", id], //cache key is now an array with a combo of string houses and the id
+    queryFn: () =>
+      axios.get(`${config.baseApiUrl}/house/${id}`).then((resp) => resp.data), //<-- corresponds to the url we created
+  });
+};
 
 // const useAddHouse = () => {
 //   const queryClient = useQueryClient();
@@ -99,7 +102,7 @@ const useFetchHouses = () => {
 
 export {
   useFetchHouses,
-  // useFetchHouse,
+  useFetchHouse, //detl
   // useAddHouse,
   // useUpdateHouse,
   // useDeleteHouse,
