@@ -1,9 +1,9 @@
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; //mute
 import { House } from "./../types/house";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import config from "../config";
 import axios, { AxiosError, AxiosResponse } from "axios";
-//import Problem from "../types/problem";
+import Problem from "../types/problem"; //mute
 
 //(): House[] means we are typing the return type
 // const useFetchHouses = (): House[] => {
@@ -64,29 +64,52 @@ const useFetchHouse = (id: number) => {
   });
 };
 
-// const useAddHouse = () => {
-//   const queryClient = useQueryClient();
-//   const nav = useNavigate();
-//   return useMutation<AxiosResponse, AxiosError<Problem>, House>({
-//     mutationFn: (h) => axios.post(`${config.baseApiUrl}/houses`, h),
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ queryKey: ["houses"] });
-//       nav("/");
-//     },
-//   });
-// };
+//mute
+//useAddHouse will use reactQuery to create the POST Http request to the APi
+//the react Query hook is used for data mutations like 
+//    POST, PUTS and DELETES is called "useMutation"
+//return useMutation<AxiosResponse, AxiosError<Problem>, House>({
+//       AxiosResponse - FIRST axios generic parameter for RESPONSE
+//       AxiosError<>  - SECOND axios generic parameter for ERROR TYPE
+//       House         - THIRD parameter is the TYPE we want to send to the api in the requestBody
 
-// const useUpdateHouse = () => {
-//   const queryClient = useQueryClient();
-//   const nav = useNavigate();
-//   return useMutation<AxiosResponse, AxiosError<Problem>, House>({
-//     mutationFn: (h) => axios.put(`${config.baseApiUrl}/houses`, h),
-//     onSuccess: (_, house) => {
-//       queryClient.invalidateQueries({ queryKey: ["houses"] });
-//       nav(`/house/${house.id}`);
-//     },
-//   });
-// };
+//Note: if adding the house is successful we need to modify the cache that was cached 
+//in fetchHouses() method. Because we now know that the cache is no longer correct because we 
+//added a new record. We will use the useQueryClient() hook instance that we created earlier in 
+//index.tsx to invalidate the houses query
+const useAddHouse = () => {
+  const queryClient = useQueryClient();
+  const nav = useNavigate();  //used to do the actual navigation to route (see line 88)
+  return useMutation<AxiosResponse, AxiosError<Problem>, House>({
+    //queryKey: ["houses", id], //no cache key because for mutations we dont cache anything
+    mutationFn: (h) => axios.post(`${config.baseApiUrl}/houses`, h), //instead we just write 
+                                               //the arrow function that executes the request
+                                               //(h) axios gets the house instance. and post that
+                                               //(h) to the API endpoint like:
+                                               // ${config.baseApiUrl}/houses`, h)
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["houses"] }); //invalidate the cache created in 
+                                            //the fetchHouses. So now any attempt to use the cache
+                                            //houses will be refetched from the api creating a 
+                                            //fresh cache
+      nav("/"); //we want to navigate to the list of houses when the "add" is completed
+    },
+  });
+};
+
+//The only differences fron useAddHouse are that we are now have to do a PUT request and 
+//instead of going to the list of houses we are going to the DETAIL PAGE for the house
+const useUpdateHouse = () => {
+  const queryClient = useQueryClient();
+  const nav = useNavigate();
+  return useMutation<AxiosResponse, AxiosError<Problem>, House>({
+    mutationFn: (h) => axios.put(`${config.baseApiUrl}/houses`, h),
+    onSuccess: (_, house) => {
+      queryClient.invalidateQueries({ queryKey: ["houses"] });
+      nav(`/house/${house.id}`);
+    },
+  });
+};
 
 // const useDeleteHouse = () => {
 //   const queryClient = useQueryClient();
