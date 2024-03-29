@@ -104,29 +104,29 @@ const useUpdateHouse = () => {
   const nav = useNavigate();
   return useMutation<AxiosResponse, AxiosError<Problem>, House>({
     mutationFn: (h) => axios.put(`${config.baseApiUrl}/houses`, h),
-    onSuccess: (_, house) => {
-      queryClient.invalidateQueries({ queryKey: ["houses"] });
-      nav(`/house/${house.id}`);
+    onSuccess: (_, house) => {     //the first param is an underscore. in axios it means we dont have any in the first parameter
+      queryClient.invalidateQueries({ queryKey: ["houses"] });  //invalidate the cache created in fetchHouses
+      nav(`/house/${house.id}`); //navigate to house detail page
     },
   });
 };
 
-// const useDeleteHouse = () => {
-//   const queryClient = useQueryClient();
-//   const nav = useNavigate();
-//   return useMutation<AxiosResponse, AxiosError, House>({
-//     mutationFn: (h) => axios.delete(`${config.baseApiUrl}/houses/${h.id}`),
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ queryKey: ["houses"] });
-//       nav("/");
-//     },
-//   });
-// };
+const useDeleteHouse = () => {
+  const queryClient = useQueryClient();
+  const nav = useNavigate();
+  return useMutation<AxiosResponse, AxiosError, House>({
+    mutationFn: (h) => axios.delete(`${config.baseApiUrl}/houses/${h.id}`), //no need to send the house. just send the id to delete
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["houses"] }); //invalidate the cache created in fetchHouses
+      nav("/");
+    },
+  });
+};
 
 export {
-  useFetchHouses,
-  useFetchHouse, //detl
-  // useAddHouse,
-  // useUpdateHouse,
-  // useDeleteHouse,
+   useFetchHouses,
+   useFetchHouse, //detl
+   useAddHouse, //mute
+   useUpdateHouse, //mute
+   useDeleteHouse, //mute
 };
