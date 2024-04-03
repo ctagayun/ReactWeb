@@ -44,23 +44,47 @@ import Problem from "../types/problem"; //mute
 //     The second paramater is the type we expect back when
 //     something goes wrong. In this case AxiosError.
 
+//see Module 4- React Details Component
+//https://app.pluralsight.com/ilx/video-courses/fbbac3b2-0e56-464b-92f2-0b877f92f12c/6feac58d-c6dc-40ae-afd9-6358f0bf8bc1/186797d5-0998-4f0f-be58-47b855a6e15e
+//using react-query 
+//     - no need to call useState because useQuery takes car of manging the state for us
+//     - no need to call useEffect it exposes the functionality using "hooks"
+//     - no need to declare the return type. remove the House[]  
+//       in const useFetchHouses = (): House[] - using axios we can infer the retrn type
 
-const useFetchHouses = () => {
+ const useFetchHouses = () => {  //Infer the return type no more Houses[] param
   return useQuery<House[], AxiosError>({
-    queryKey: ["houses"], //this is the cache key. It has to be in the form of an array
-    queryFn: () =>        //this is the function that gets the data. Doesn't have to be axios toget data. You can use fetch too.
-      axios.get(`${config.baseApiUrl}/houses`).then ((resp) => resp.data), //resp.data returns the data. go to houseList and change code to receive data
+                          //useQuery - is a hook that has internal state and therefore our fetch houses
+                          //hook that we define here will therefore re-render when internal state
+                          //of useQuery changes and that causes all components that uses useFetchHouses to re-render as well
+                          //House[] - is the type of data we expect to get. in this case an array of House type
+                          //AxiosError - is type data that we expect to get. in this case AxiosError
+
+    queryKey: ["houses"], //this is the cache key. It has to be in the form of an array.
+                          //this means when this hook executes a separate cache will be created 
+
+    queryFn: () =>        //this is the function that gets the data. Doesn't have to be axios to get data. You can use fetch too.
+           axios.get(`${config.baseApiUrl}/houses`).then ((resp) => resp.data),
+                          //baseApiUrl - the first parameter is the Url where it should get the data from.
+                          //resp.data  - and it is returning the "data" from the response object "resp.data". 
   });
 } //eof useFetchHouses
 
-//Detl
+//Detl 
+//https://app.pluralsight.com/ilx/video-courses/fbbac3b2-0e56-464b-92f2-0b877f92f12c/8c582716-546d-4dbb-a88c-51541498ae9f/9e176161-3009-4fb0-8478-7e3ed666d2fc
+
 //This means when this hook executes we pass in house id and a
 //separate cache will be created for this PARTICULAR house id
 const useFetchHouse = (id: number) => {
   return useQuery<House, AxiosError>({
-    queryKey: ["houses", id], //cache key is now an array with a combo of string houses and the id
+    queryKey: ["houses", id], //this means when this hook executes we pass in ID and a 
+                              //separate will be cache will be created for this particular house ID.
+                              //when this hook is re-remdered by the component that mounts it with the  
+                              //same id and the cache is still valid, the house will be returned from cache
     queryFn: () =>
-      axios.get(`${config.baseApiUrl}/house/${id}`).then((resp) => resp.data), //<-- corresponds to the url we created
+      axios.get(`${config.baseApiUrl}/house/${id}`).then((resp) => resp.data),
+                              //baseApiUrl/id - the first parameter is the Url where it should get the data from.
+                              //resp.data  - and it is returning the "data" from the response object "resp.data". 
   });
 };
 
