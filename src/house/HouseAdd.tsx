@@ -1,11 +1,15 @@
+//crud
 import { useAddHouse } from "../hooks/HouseHooks";
 import { House } from "../types/house";
-import ValidationSummary from "../ValidationSummary";
+//import ValidationSummary from "../ValidationSummary";
 import HouseForm from "./HouseForm";
 
 const HouseAdd = () => {
   const addHouseMutation = useAddHouse();
 
+  //we need the House instance to pass to the form Houseadd.tsx component. 
+  //so we import it: 
+  //because we are adding a house, all property values are empty or zero
   const house: House = {
     address: "",
     country: "",
@@ -17,12 +21,14 @@ const HouseAdd = () => {
 
   return (
     <>
-      {addHouseMutation.isError && (
+      {/* {addHouseMutation.isError && (
         <ValidationSummary error={addHouseMutation.error} />
-      )}
-      <HouseForm
+      )} */}
+      <HouseForm //all that's left now is to render the form passing the "house: House" as prop
         house={house}
-        submitted={(house) => addHouseMutation.mutate(house)}  //this will do the actual POST request
+        submitted={(house) => addHouseMutation.mutate(house)}  
+                             //this will do the actual POST request. 
+                             //to add a house use addHouseMutation
       />
     </>
   );

@@ -14,20 +14,24 @@ import Header from './Header';
 import HouseList from '../house/HouseList';
 import HouseDetail from "../house/HouseDetail"; //detl
 import {BrowserRouter, Route, Routes} from 'react-router-dom'; //rtg
+import HouseEdit from "../house/HouseEdit"; //crud
+import HouseAdd from "../house/HouseAdd";
 
 function App() {
     return (
       //rtg
       //detl - path="/house/:id" this will not literally expect colon id ":id" in the
       //       url. Instead we will expect the actual id of the house
+      //crud: HouseEdit, HouseAdd
      <BrowserRouter> 
        <div className='container'>
           <Header subtitle="Providing houses all over the world">
           </Header>
           <Routes>
              <Route path="/" element={<HouseList />}></Route>
-             <Route path="/house/:id" element={<HouseDetail />}></Route>
-           
+             <Route path="/house/edit/:id" element={<HouseEdit />}></Route> 
+             <Route path="/house/add" element={<HouseAdd />}></Route>
+             <Route path="/house/:id" element={<HouseDetail />}></Route>   
           </Routes>
        </div>
      </BrowserRouter>

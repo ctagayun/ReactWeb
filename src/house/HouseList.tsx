@@ -5,7 +5,7 @@ import { useFetchHouses } from "../hooks/HouseHooks";
 import ApiStatus from "../apiStatus";
 import { useNavigate } from "react-router-dom";
 import { House } from "../types/house";
-
+import { Link } from "react-router-dom"; //crud
 //import { House } from "../types/house";
 //import config from "../config";
 
@@ -50,6 +50,9 @@ const HouseList = () => {
             ))}
         </tbody>
       </table>
+      <Link className="btn btn-primary" to="/house/add"> 
+        Add
+      </Link>
     </div>
   );
 };
