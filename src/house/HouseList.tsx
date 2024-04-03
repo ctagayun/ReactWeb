@@ -50,6 +50,7 @@ const HouseList = () => {
             ))}
         </tbody>
       </table>
+      
       <Link className="btn btn-primary" to="/house/add"> 
         Add
       </Link>
@@ -58,3 +59,6 @@ const HouseList = () => {
 };
 
 export default HouseList;
+
+// Do not use A tag because it will cause a reload. Use "Link" instead
+//to="/house/add"> when button is pressed goto to="/house/add">
