@@ -112,3 +112,5 @@ const HouseForm = ({house, submitted}: args) => {
 }
 
 export default HouseForm;
+
+//disabled={!houseState.address || !houseState.country}
