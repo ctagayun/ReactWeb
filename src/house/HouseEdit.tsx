@@ -2,8 +2,9 @@
 import { useParams } from "react-router-dom";
 import ApiStatus from "../apiStatus";
 import { useFetchHouse, useUpdateHouse } from "../hooks/HouseHooks";
-//mport ValidationSummary from "../ValidationSummary";
+import ValidationSummary from "../ValidationSummary";
 import HouseForm from "./HouseForm";
+
 
 const HouseEdit = () => {
   const { id } = useParams();  //first get id from url using useParams
@@ -21,9 +22,11 @@ const HouseEdit = () => {
 
   return (
     <>
-      {/* {updateHouseMutation.isError && (
-        <ValidationSummary error={updateHouseMutation.error} />
-      )} */}
+      {updateHouseMutation.isError && (  //add ValidationSummary component. First check if the mutation has returned an error
+        <ValidationSummary error={updateHouseMutation.error} />  //if so render a validation summary passing the 
+                                                              //error property of the mutation which is now of type 
+                                                              //AxiosError of type Problem.
+       )}
       <HouseForm
         house={data}
         submitted={(house) => {
