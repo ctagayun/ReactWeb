@@ -58,7 +58,9 @@ import Problem from "../types/problem"; //mute
                           //hook that we define here will therefore re-render when internal state
                           //of useQuery changes and that causes all components that uses useFetchHouses to re-render as well
                           //House[] - is the type of data we expect to get. in this case an array of House type
-                          //AxiosError - is type data that we expect to get. in this case AxiosError
+                         
+                          //AxiosError -when error occurs using Axios it will produce an object 
+                          //   of type "AxiosError".
 
     queryKey: ["houses"], //this is the cache key. It has to be in the form of an array.
                           //this means when this hook executes a separate cache will be created 
@@ -104,8 +106,16 @@ const useFetchHouse = (id: number) => {
 const useAddHouse = () => {
   const queryClient = useQueryClient();
   const nav = useNavigate();  //used to do the actual navigation to route (see line 88)
+
+
   return useMutation<AxiosResponse, AxiosError<Problem>, House>({
-    //queryKey: ["houses", id], //no cache key because for mutations we dont cache anything
+     //AxiosError - when error occurs using Axios it will produce an object 
+     //   of type "AxiosError". We can add a GENERIC PARAMETER to the axios error type
+     //   to indicate that the error response will contain our custom "problem" type 
+     //   defined in src/types/problem.ts
+
+    //queryKey: ["houses", id], //Deleted no cache key because for mutations we dont cache anything
+
     mutationFn: (h) => axios.post(`${config.baseApiUrl}/houses`, h), //instead we just write 
                                                //the arrow function that executes the request
                                                //(h) axios gets the house instance. and post that
@@ -127,6 +137,10 @@ const useUpdateHouse = () => {
   const queryClient = useQueryClient();
   const nav = useNavigate();
   return useMutation<AxiosResponse, AxiosError<Problem>, House>({
+     //AxiosError - when error occurs using Axios it will produce an object 
+     //   of type "AxiosError". We can add a GENERIC PARAMETER to the axios error type
+     //   to indicate that the error response will contain our custom "problem" type 
+     //   defined in src/types/problem.ts
     mutationFn: (h) => axios.put(`${config.baseApiUrl}/houses`, h),
     onSuccess: (_, house) => {     //the first param is an underscore. in axios it means we dont have any in the first parameter
       queryClient.invalidateQueries({ queryKey: ["houses"] });  //invalidate the cache created in fetchHouses

@@ -2,7 +2,7 @@ import {useState} from "react";
 
 import {House} from "../types/house";
 
-//add a type for the props. this component needs two things in the props
+//add a type for the props of this component. There to items in the props of this component.
 type args ={
      house: House; //1. the house instance
      submitted: (house: House) => void; //2. the function to be called when the form is submitted.
