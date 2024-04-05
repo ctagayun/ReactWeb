@@ -100,3 +100,4 @@ const Bids = ({house}: Args) => { //this means house is of type Args
       );
     
 }
+export default Bids;
