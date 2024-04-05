@@ -104,19 +104,23 @@ const useFetchHouse = (id: number) => {
 //added a new record. We will use the useQueryClient() hook instance that we created earlier in 
 //index.tsx to invalidate the houses query
 const useAddHouse = () => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient(); //we need to invalidate the cache created by useFetchHouses
+                                        //so we need a useQueryClient object
   const nav = useNavigate();  //used to do the actual navigation to route (see line 88)
 
 
   return useMutation<AxiosResponse, AxiosError<Problem>, House>({
-     //AxiosError - when error occurs using Axios it will produce an object 
+     //We return result of useMutation again with AxiosResponse (1)
+     //We return AxiosError (2) - when error occurs using Axios it will produce an object 
      //   of type "AxiosError". We can add a GENERIC PARAMETER to the axios error type
      //   to indicate that the error response will contain our custom "problem" type 
      //   defined in src/types/problem.ts
+     //We return House (3) as generic parameter
 
     //queryKey: ["houses", id], //Deleted no cache key because for mutations we dont cache anything
 
-    mutationFn: (h) => axios.post(`${config.baseApiUrl}/houses`, h), //instead we just write 
+    mutationFn: (h) => axios.post(`${config.baseApiUrl}/houses`, h), 
+                                               //instead we just write 
                                                //the arrow function that executes the request
                                                //(h) axios gets the house instance. and post that
                                                //(h) to the API endpoint like:
