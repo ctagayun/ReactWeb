@@ -36,15 +36,23 @@ const HouseForm = ({house, submitted}: args) => {
      };
 
      //upld
-     const onFileSelected = async (
-      e: React.ChangeEvent<HTMLInputElement>
-      ): Promise<void> => {
-        e.preventDefault();
-        e.target.files &&
-          e.target.files[0] &&
-          setHouseState({
-            ...houseState,
-            photo: await toBase64(e.target.files[0]),
+     //this syntax: e: React.ChangeEvent<HTMLInputElement
+     //is defining the type of "e:" which is React.ChangeEvent<HTMLInputElement> TYPE
+     const onFileSelected = async (e: React.ChangeEvent<HTMLInputElement> //gets the change event TYPE as parammeter
+      ): Promise<void> => { //it is an async function returning and empty <void> promise
+         e.preventDefault(); //first thing to be done is to prevent the default behavior which is reloading the browser
+         e.target.files &&  e.target.files[0] &&  //second check if there are files 
+                                                  //on the target of the event.
+                                                  //The target is the HTML input element 
+                                                  //
+                                                  //and if there are files we also we want 
+                                                  //to make sure it is the first file
+            //and if it is the first file we want to modify 
+            //the houseState so that the photo gets added but first
+            //we need to convert the first file to string: await toBase64(e.target.files[0]
+            //no need for external libraries. We are using the function toBase64 
+            //to convert the file. we have to write the function in /src/toBase64
+            setHouseState({...houseState, photo: await toBase64(e.target.files[0]),
           });
       };
 
