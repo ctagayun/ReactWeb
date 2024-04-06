@@ -46,7 +46,7 @@ const HouseDetail = () => {
           </div>
           <div className="col-2">
             <button
-              className="btn btn-danger w-100"
+              className="btn btn-danger w-120"
               onClick={() => {
                 if (window.confirm("Are you sure?"))
                   deleteHouseMutation.mutate(data);
