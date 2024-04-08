@@ -1,6 +1,5 @@
 const config = {
-  //baseApiUrl: "https://localhost:4000", //cookie hosting. not needed since we are running in the same domain.
-  baseApiUrl: "", //cookie hosting. not needed since we are running in the same domain.
+  baseApiUrl: "https://localhost:4000", //cookie hosting. not needed since we are running in the same domain.
 };
 
 
