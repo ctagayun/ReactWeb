@@ -20,6 +20,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'; //rtg
 import useFetchUser from '../hooks/UserHooks';
 
 function App() {
+    //call the new hook we created to get the user: useFetchUser
     const { isSuccess } = useFetchUser(); //implCookieReact
 
     return (

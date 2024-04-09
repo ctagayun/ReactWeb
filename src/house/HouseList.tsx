@@ -23,7 +23,7 @@ const HouseList = () => {
   //This hook returns "data" so we need to destructure it
   const {data, status, isSuccess} = useFetchHouses(); 
   
-  //call fetch user hook - implCookieReact
+  //we are calling useFetchUser here also in addition to calling it in HouseHook - implCookieReact
   const { data: userClaims } = useFetchUser(); //rename data: to userClaims to avoid conflicts because axios returns resp.data
 
   if (!isSuccess)
