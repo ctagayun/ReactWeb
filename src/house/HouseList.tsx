@@ -6,6 +6,7 @@ import ApiStatus from "../apiStatus";
 import { useNavigate } from "react-router-dom";
 import { House } from "../types/house";
 import { Link } from "react-router-dom"; //crud
+import useFetchUser from "../hooks/UserHooks";
 //import { House } from "../types/house";
 //import config from "../config";
 
@@ -22,6 +23,9 @@ const HouseList = () => {
   //This hook returns "data" so we need to destructure it
   const {data, status, isSuccess} = useFetchHouses(); 
   
+  //call fetch user hook - implCookieReact
+  const { data: userClaims } = useFetchUser(); //rename data: to userClaims to avoid conflicts because axios returns resp.data
+
   if (!isSuccess)
     return <ApiStatus status={status} />
   return (
@@ -51,9 +55,15 @@ const HouseList = () => {
         </tbody>
       </table>
       
-      <Link className="btn btn-primary" to="/house/add"> 
+      {userClaims && //added under implCookieReact. check if the user has rights. in other words the claim role has value admin. If that's the case I am displaying the button
+        userClaims.find((c) => c.type === "role" && c.value === "Admin") && (
+          <Link className="btn btn-primary" to="/house/add">
+             Add
+          </Link>
+        )}
+      {/* <Link className="btn btn-primary" to="/house/add"> 
         Add
-      </Link>
+      </Link> */}
     </div>
   );
 };

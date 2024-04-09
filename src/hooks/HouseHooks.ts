@@ -66,7 +66,10 @@ import Problem from "../types/problem"; //mute
                           //this means when this hook executes a separate cache will be created 
 
     queryFn: () =>        //this is the function that gets the data. Doesn't have to be axios to get data. You can use fetch too.
-           axios.get(`${config.baseApiUrl}/houses`).then ((resp) => resp.data),
+                          //implCookieReact - to implement authentication in axios, you can add
+                          //withCredentials: true. axios.get(`${config.baseApiUrl}/houses`, {withCredentials:true})
+                          //but it is better to do this in main.tsx as default. by doing so we don't have to do this in allrequest
+                 axios.get(`${config.baseApiUrl}/houses`).then ((resp) => resp.data),
                           //baseApiUrl - the first parameter is the Url where it should get the data from.
                           //resp.data  - and it is returning the "data" from the response object "resp.data". 
   });

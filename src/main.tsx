@@ -5,7 +5,9 @@ import App from './main/App.tsx'
 import "bootstrap/dist/css/bootstrap.min.css" //import bootstrap
 //useQuery needs the following import
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import axios from 'axios';
 
+axios.defaults.withCredentials = true; //implCookieReact
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
