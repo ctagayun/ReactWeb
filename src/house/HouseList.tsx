@@ -1,14 +1,19 @@
-//import { Link } from "react-router-dom";
+ 
+// import { currencyFormatter } from "../config";
+// import { useFetchHouses } from "../hooks/HouseHooks";
+// import ApiStatus from "../apiStatus";
 // import { useNavigate } from "react-router-dom";
+// import { House } from "../types/house";
+// import { Link } from "react-router-dom"; //crud
+// import useFetchUser from "../hooks/UserHooks";
+
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { currencyFormatter } from "../config";
 import { useFetchHouses } from "../hooks/HouseHooks";
-import ApiStatus from "../apiStatus";
-import { useNavigate } from "react-router-dom";
 import { House } from "../types/house";
-import { Link } from "react-router-dom"; //crud
 import useFetchUser from "../hooks/UserHooks";
-//import { House } from "../types/house";
-//import config from "../config";
+import ApiStatus from "../apiStatus";
 
 const HouseList = () => {
 
@@ -23,7 +28,7 @@ const HouseList = () => {
   //This hook returns "data" so we need to destructure it
   const {data, status, isSuccess} = useFetchHouses(); 
   
-  //we are calling useFetchUser here also in addition to calling it in HouseHook - implCookieReact
+  //we are calling useFetchUser here also in addition to calling it in app.tsx - implCookieReact
   const { data: userClaims } = useFetchUser(); //rename data: to userClaims to avoid conflicts because axios returns resp.data
 
   if (!isSuccess)
@@ -61,9 +66,7 @@ const HouseList = () => {
              Add
           </Link>
         )}
-      {/* <Link className="btn btn-primary" to="/house/add"> 
-        Add
-      </Link> */}
+      
     </div>
   );
 };
