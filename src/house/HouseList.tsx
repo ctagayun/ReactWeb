@@ -1,12 +1,4 @@
  
-// import { currencyFormatter } from "../config";
-// import { useFetchHouses } from "../hooks/HouseHooks";
-// import ApiStatus from "../apiStatus";
-// import { useNavigate } from "react-router-dom";
-// import { House } from "../types/house";
-// import { Link } from "react-router-dom"; //crud
-// import useFetchUser from "../hooks/UserHooks";
-
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { currencyFormatter } from "../config";
