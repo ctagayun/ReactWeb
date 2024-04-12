@@ -16,7 +16,8 @@ const HouseList = () => {
              //A normal redirect using window location ref for example will 
              //work too but the entire application will be RELOADED from the 
              //server after which the routing mechanism will determine the 
-             //RIGHT component to dispaly
+             //RIGHT component to dispal
+ 
   //This hook returns "data" so we need to destructure it
   const {data, status, isSuccess} = useFetchHouses(); 
   
