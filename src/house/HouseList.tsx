@@ -18,7 +18,8 @@ const HouseList = () => {
              //server after which the routing mechanism will determine the 
              //RIGHT component to dispal
  
-  //This hook returns "data" so we need to destructure it
+ 
+             //This hook returns "data" so we need to destructure it
   const {data, status, isSuccess} = useFetchHouses(); 
   
   //we are calling useFetchUser here also in addition to calling it in app.tsx - implCookieReact
